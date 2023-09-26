@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
     private let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = #colorLiteral(red: 0.7607843137, green: 0.7607843137, blue: 0.7607843137, alpha: 1)
+        imageView.backgroundColor = .specialLine
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 5
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,8 +21,8 @@ class ViewController: UIViewController {
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Ivan Byndiu"
-        label.textColor = #colorLiteral(red: 0.3176470588, green: 0.3176470588, blue: 0.3137254902, alpha: 1)
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textColor = .specialGray
+        label.font = .robotoMedium24()
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -31,26 +31,24 @@ class ViewController: UIViewController {
     
     private lazy var addWorkoutButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = #colorLiteral(red: 0.9921568627, green: 0.8392156863, blue: 0.3568627451, alpha: 1)
+        button.backgroundColor = .specialYellow
         button.layer.cornerRadius = 10
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.5
-        button.layer.shadowOffset = CGSize(width: 0, height: 5)
-        button.layer.shadowRadius = 4
         button.setImage(UIImage(named: "plus"), for: .normal)
         button.setTitle("Add workout", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
-        button.tintColor = #colorLiteral(red: 0.1411764706, green: 0.2941176471, blue: 0.262745098, alpha: 1)
+        button.titleLabel?.font = .robotoMedium12()
+        button.tintColor = .specialDarkGreen
         button.imageEdgeInsets = .init(top: 0, left: 20, bottom: 15, right: 0)
         button.titleEdgeInsets = .init(top: 50, left: -40, bottom: 0, right: 0)
         button.addTarget(self, action: #selector(addWorkoutButtonTapped), for: .touchUpInside)
+        button.addShadowOnView()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private let calendarView = CalendarView()
-    
     private let weathetView = WeatherView()
+    private let workoutTodayLabel = UILabel(text: "Workout today")
+    private let tableView = MainTableView()
     
     override func viewDidLayoutSubviews() {
         userPhotoImageView.layer.cornerRadius = userPhotoImageView.frame.width / 2
@@ -62,17 +60,17 @@ class ViewController: UIViewController {
         setupViews()
         setConstraints()
     }
-
-// MARK: Private Func
     
     private func setupViews() {
-        view.backgroundColor = #colorLiteral(red: 0.9411764706, green: 0.9294117647, blue: 0.8862745098, alpha: 1)
+        view.backgroundColor = .specialBackground
         
         view.addSubview(calendarView)
         view.addSubview(userPhotoImageView)
         view.addSubview(userNameLabel)
         view.addSubview(addWorkoutButton)
         view.addSubview(weathetView)
+        view.addSubview(workoutTodayLabel)
+        view.addSubview(tableView)
     }
     
     @objc private func addWorkoutButtonTapped() {
@@ -83,7 +81,7 @@ class ViewController: UIViewController {
 
 // MARK: Set Constraints
 
-extension ViewController {
+extension MainViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -109,7 +107,16 @@ extension ViewController {
             weathetView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 5),
             weathetView.leadingAnchor.constraint(equalTo: addWorkoutButton.trailingAnchor, constant: 10),
             weathetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            weathetView.heightAnchor.constraint(equalToConstant: 80)
+            weathetView.heightAnchor.constraint(equalToConstant: 80),
+            
+            workoutTodayLabel.topAnchor.constraint(equalTo: addWorkoutButton.bottomAnchor, constant: 10),
+            workoutTodayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            workoutTodayLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            
+            tableView.topAnchor.constraint(equalTo: workoutTodayLabel.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }

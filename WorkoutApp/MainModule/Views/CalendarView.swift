@@ -9,6 +9,8 @@ import UIKit
 
 class CalendarView: UIView {
     
+    private let calendarCollectionView = CalendarCollectionView()
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         
@@ -21,9 +23,11 @@ class CalendarView: UIView {
     }
     
     private func setupViews() {
-        backgroundColor = #colorLiteral(red: 0.2, green: 0.5529411765, blue: 0.4901960784, alpha: 1)
+        backgroundColor = .specialGreen
         layer.cornerRadius = 10
         translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(calendarCollectionView)
     }
 }
 
@@ -33,7 +37,10 @@ extension CalendarView {
     
     private func setConstraints () {
         NSLayoutConstraint.activate([
-            
+            calendarCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            calendarCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 105),
+            calendarCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
+            calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5)
         ])
     }
 }
