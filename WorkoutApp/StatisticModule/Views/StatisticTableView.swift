@@ -26,7 +26,6 @@ class StatisticTableView: UITableView {
     private func configure() {
         backgroundColor = .none
         separatorInset = .init(top: 0, left: 20, bottom: 0, right: 20)
-        bounces = false
         showsVerticalScrollIndicator = false
         translatesAutoresizingMaskIntoConstraints = false
     }
