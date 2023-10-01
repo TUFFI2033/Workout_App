@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DD3BAEEE2AC3736B004C7200 /* UIStackView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3BAEED2AC3736B004C7200 /* UIStackView + Extension.swift */; };
+		DD3BAEF42AC4C07B004C7200 /* StatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3BAEF32AC4C07B004C7200 /* StatisticViewController.swift */; };
+		DD3BAEF62AC4C391004C7200 /* StatisticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3BAEF52AC4C391004C7200 /* StatisticTableView.swift */; };
+		DD3BAEF92AC4C556004C7200 /* StatisticTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3BAEF82AC4C556004C7200 /* StatisticTableViewCell.swift */; };
 		DD6382862AA26D710058F9FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6382852AA26D710058F9FF /* AppDelegate.swift */; };
 		DD6382882AA26D710058F9FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6382872AA26D710058F9FF /* SceneDelegate.swift */; };
 		DD63828A2AA26D710058F9FF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6382892AA26D710058F9FF /* MainViewController.swift */; };
@@ -25,10 +28,14 @@
 		DD664AD52AC08F5B008B1363 /* UILabel + Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD664AD42AC08F5B008B1363 /* UILabel + Extentions.swift */; };
 		DD664AD72AC096A3008B1363 /* MainTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD664AD62AC096A3008B1363 /* MainTableView.swift */; };
 		DD664AD92AC0A04D008B1363 /* WorkoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD664AD82AC0A04D008B1363 /* WorkoutTableViewCell.swift */; };
+		DD7DE1372AC951000072890B /* MainTapBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7DE1362AC951000072890B /* MainTapBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DD3BAEED2AC3736B004C7200 /* UIStackView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView + Extension.swift"; sourceTree = "<group>"; };
+		DD3BAEF32AC4C07B004C7200 /* StatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewController.swift; sourceTree = "<group>"; };
+		DD3BAEF52AC4C391004C7200 /* StatisticTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticTableView.swift; sourceTree = "<group>"; };
+		DD3BAEF82AC4C556004C7200 /* StatisticTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticTableViewCell.swift; sourceTree = "<group>"; };
 		DD6382822AA26D710058F9FF /* WorkoutApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WorkoutApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD6382852AA26D710058F9FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD6382872AA26D710058F9FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +55,7 @@
 		DD664AD42AC08F5B008B1363 /* UILabel + Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel + Extentions.swift"; sourceTree = "<group>"; };
 		DD664AD62AC096A3008B1363 /* MainTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableView.swift; sourceTree = "<group>"; };
 		DD664AD82AC0A04D008B1363 /* WorkoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutTableViewCell.swift; sourceTree = "<group>"; };
+		DD7DE1362AC951000072890B /* MainTapBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTapBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +69,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD3BAEF02AC4C028004C7200 /* StatisticModule */ = {
+			isa = PBXGroup;
+			children = (
+				DD3BAEF12AC4C047004C7200 /* Views */,
+				DD3BAEF22AC4C057004C7200 /* Controllers */,
+			);
+			path = StatisticModule;
+			sourceTree = "<group>";
+		};
+		DD3BAEF12AC4C047004C7200 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD3BAEF72AC4C548004C7200 /* Cell */,
+				DD3BAEF52AC4C391004C7200 /* StatisticTableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD3BAEF22AC4C057004C7200 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DD3BAEF32AC4C07B004C7200 /* StatisticViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DD3BAEF72AC4C548004C7200 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				DD3BAEF82AC4C556004C7200 /* StatisticTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		DD6382792AA26D710058F9FF = {
 			isa = PBXGroup;
 			children = (
@@ -81,7 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				DD6382992AA26D920058F9FF /* Application */,
+				DD7DE1352AC950AA0072890B /* NavigationModule */,
 				DD63829C2AA26E380058F9FF /* MainModule */,
+				DD3BAEF02AC4C028004C7200 /* StatisticModule */,
 				DD6382A42AA64DF70058F9FF /* Extensions */,
 				DD63829B2AA26DD50058F9FF /* SupportingFiles */,
 			);
@@ -183,6 +227,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DD7DE1352AC950AA0072890B /* NavigationModule */ = {
+			isa = PBXGroup;
+			children = (
+				DD7DE1362AC951000072890B /* MainTapBarController.swift */,
+			);
+			path = NavigationModule;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -255,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD3BAEF42AC4C07B004C7200 /* StatisticViewController.swift in Sources */,
 				DD6382A32AA342160058F9FF /* WeatherView.swift in Sources */,
 				DD3BAEEE2AC3736B004C7200 /* UIStackView + Extension.swift in Sources */,
 				DD664AC72AC073F6008B1363 /* UIFont + Extensions.swift in Sources */,
@@ -268,6 +321,9 @@
 				DD6382A12AA327110058F9FF /* CalendarView.swift in Sources */,
 				DD6382A72AA64E680058F9FF /* UIView + Extensions.swift in Sources */,
 				DD664AC92AC0741E008B1363 /* UIColor + Extentions.swift in Sources */,
+				DD7DE1372AC951000072890B /* MainTapBarController.swift in Sources */,
+				DD3BAEF92AC4C556004C7200 /* StatisticTableViewCell.swift in Sources */,
+				DD3BAEF62AC4C391004C7200 /* StatisticTableView.swift in Sources */,
 				DD6382882AA26D710058F9FF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
