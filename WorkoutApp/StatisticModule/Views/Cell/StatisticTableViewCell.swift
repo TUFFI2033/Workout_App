@@ -27,13 +27,6 @@ class StatisticTableViewCell: UITableViewCell {
         return label
     }()
     
-    private let lineView: UIView = {
-       let view = UIView()
-        view.backgroundColor = .specialLine
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
     private let beforeLabel = UILabel(text: "Before: 18")
     private let nowLabel = UILabel(text: "Now: 20")
     
@@ -62,7 +55,6 @@ class StatisticTableViewCell: UITableViewCell {
         addSubview(nameLabel)
         addSubview(differenceLabel)
         addSubview(labelsStackView)
-        addSubview(lineView)
     }
 }
 
@@ -79,10 +71,6 @@ extension StatisticTableViewCell {
             labelsStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             labelsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             labelsStackView.trailingAnchor.constraint(lessThanOrEqualTo: differenceLabel.leadingAnchor, constant: -10),
-            lineView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            lineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            lineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            lineView.heightAnchor.constraint(equalToConstant: 1)
         ])
     }
 }

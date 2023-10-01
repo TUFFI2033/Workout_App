@@ -21,6 +21,8 @@ class StatisticViewController: UIViewController {
     private lazy var segmentedControl: UISegmentedControl = {
         let segmented = UISegmentedControl(items: ["Week", "Month"])
         segmented.backgroundColor = .specialGreen
+        segmented.selectedSegmentIndex = 0
+        segmented.selectedSegmentTintColor = .specialYellow
         segmented.setTitleTextAttributes([.font : UIFont.robotoMedium16() as Any,
                                           .foregroundColor : UIColor.white],for: .normal)
         segmented.setTitleTextAttributes([.font : UIFont.robotoMedium16() as Any,
