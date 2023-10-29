@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SlidetViewProtocol: AnyObject {
+    func changeValue(type: SliderType, value: Int)
+}
+
 class SliderView: UIView {
+    
+    weak var delegate: SlidetViewProtocol?
     
     private let nameLabel = UILabel(text: "Name", font: .robotoMedium18(), textColor: .specialGray)
     private let numberLabel = UILabel(text: "0", font: .robotoMedium24(), textColor: .specialGray)
@@ -20,6 +26,20 @@ class SliderView: UIView {
                                              axis: .vertical,
                                              spacing: 10)
     
+    private var sliderType: SliderType?
+    
+    var isActive: Bool = true {
+        didSet {
+            if self.isActive {
+                unitStackView.alpha = 1
+            } else {
+                unitStackView.alpha = 0.5
+                slider.value = 0
+                numberLabel.text = "0"
+            }
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -31,11 +51,12 @@ class SliderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(name: String, maxValue: Float) {
+    convenience init(name: String, maxValue: Float, type: SliderType) {
         self.init()
         self.nameLabel.text = name
         self.slider.minimumValue = 0
         self.slider.maximumValue = maxValue
+        self.sliderType = type
     }
     
     private func setupViews() {
@@ -49,7 +70,16 @@ class SliderView: UIView {
     }
     
     @objc private func sliderChange() {
-        
+        let intSliderValue = Int(slider.value)
+        numberLabel.text =  sliderType == .timer ? intSliderValue.getTimeFromSeconds() : "\(intSliderValue)"
+        guard let sliderType else { return }
+        delegate?.changeValue(type: sliderType, value: intSliderValue)
+    }
+    
+    func resetValues() {
+        numberLabel.text = "0"
+        slider.value = 0
+        isActive = true
     }
 }
 

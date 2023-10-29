@@ -13,11 +13,15 @@ class NewWorkoutViewController: UIViewController {
                                           font: .robotoMedium24(),
                                           textColor: .specialGray)
     
-    private lazy var closeButton = ClaseButton(type: .system)
+    private lazy var closeButton = CloseButton(type: .system)
+    
     private let nameView = NameView()
     private let dateAndRepeatView = DateAndReapetView()
     private let repsOrTimerView = RepsOrTimerView()
     private let saveButton = GreenButton(text: "SAVE")
+    
+    private var workoutModel = WorkoutModel()
+    private var testImage = UIImage(named: "testWorkout")
     
     private lazy var stackView = UIStackView(arrangedSubviews: [nameView, dateAndRepeatView, repsOrTimerView],
                                              axis: .vertical,
@@ -28,6 +32,7 @@ class NewWorkoutViewController: UIViewController {
 
         setupViews()
         setConstraints()
+        addGesture()
     }
 
     private func setupViews() {
@@ -35,6 +40,7 @@ class NewWorkoutViewController: UIViewController {
         
         newWorkoutLabel.textAlignment = .center
         closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         
         view.addSubview(newWorkoutLabel)
         view.addSubview(closeButton)
@@ -44,6 +50,65 @@ class NewWorkoutViewController: UIViewController {
     
     @objc private func closeButtonTapped() {
         dismiss(animated: true)
+    }
+    
+    @objc private func saveButtonTapped() {
+        setModel()
+        saveModel()
+//        RealmManager.shared.saveWorkoutModel(workoutModel)
+//        workoutModel = WorkoutModel()
+    }
+    
+    private func setModel() {
+        workoutModel.workoutName = nameView.getNameFieldText()
+        
+        workoutModel.workoutDate = dateAndRepeatView.getDateAndRepeat().date
+        workoutModel.workoutRepeat = dateAndRepeatView.getDateAndRepeat().isRepeat
+        workoutModel.workoutNumberOfDay = dateAndRepeatView.getDateAndRepeat().date.getWeekdayNumber()
+        
+        workoutModel.workoutSets = repsOrTimerView.sets
+        workoutModel.workoutReps = repsOrTimerView.reps
+        workoutModel.workoutTimer = repsOrTimerView.timer
+        
+        guard let imageDate = testImage?.pngData() else { return }
+        workoutModel.workoutImage = imageDate
+    }
+    
+    private func saveModel() {
+        let text = nameView.getNameFieldText()
+        let count = text.filter { $0.isNumber || $0.isLetter }.count
+        
+        if count != 0 &&
+            workoutModel.workoutSets != 0 &&
+            (workoutModel.workoutReps != 0 || workoutModel.workoutTimer != 0) {
+            RealmManager.shared.saveWorkoutModel(workoutModel)
+            workoutModel = WorkoutModel()
+            
+            presentSimpleAlert(title: "Success")
+            resetValues()
+        } else {
+            presentSimpleAlert(title: "Error", message: "Enter all parameters")
+        }
+    }
+    
+    private func resetValues() {
+        nameView.deleteTextFild()
+        dateAndRepeatView.resetData()
+        repsOrTimerView.resetSliderViewValue()
+    }
+    
+    private func addGesture() {
+        let tapScreen = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        let swipeScreen = UISwipeGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        
+        swipeScreen.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tapScreen)
+        view.addGestureRecognizer(swipeScreen)
+    }
+    
+    @objc private func hideKeyboard() {
+        view.endEditing(true)
     }
 }
 

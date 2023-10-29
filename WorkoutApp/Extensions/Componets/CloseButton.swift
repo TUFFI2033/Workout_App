@@ -1,5 +1,5 @@
 //
-//  ClaseButton.swift
+//  CloseButton.swift
 //  WorkoutApp
 //
 //  Created by Ivan Byndiu on 01/10/2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ClaseButton: UIButton {
+class CloseButton: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

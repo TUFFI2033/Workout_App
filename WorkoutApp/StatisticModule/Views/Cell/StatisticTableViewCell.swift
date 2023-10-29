@@ -11,7 +11,6 @@ class StatisticTableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Biceps"
         label.textColor = .specialGray
         label.font = .robotoBold24()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,15 +19,14 @@ class StatisticTableViewCell: UITableViewCell {
     
     private let differenceLabel: UILabel = {
         let label = UILabel()
-        label.text = "+2"
         label.textColor = .specialGreen
         label.font = .robotoBold24()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let beforeLabel = UILabel(text: "Before: 18")
-    private let nowLabel = UILabel(text: "Now: 20")
+    private let beforeLabel = UILabel(text: "")
+    private let nowLabel = UILabel(text: "")
     
     private lazy var repsSetsStackView = UIStackView(arrangedSubviews: [beforeLabel, nowLabel],
                                                      axis: .horizontal,
@@ -55,6 +53,21 @@ class StatisticTableViewCell: UITableViewCell {
         addSubview(nameLabel)
         addSubview(differenceLabel)
         addSubview(labelsStackView)
+    }
+    
+    func configure(differenceModel: DifferenceWorkout) {
+        nameLabel.text = differenceModel.name
+        beforeLabel.text = "Before: \(differenceModel.firstReps)"
+        nowLabel.text = "Now: \(differenceModel.lastReps)"
+        
+        let difference = differenceModel.lastReps - differenceModel.firstReps
+        differenceLabel.text = "\(difference)"
+        
+        switch difference {
+        case ..<0: differenceLabel.textColor = .red
+        case 1...: differenceLabel.textColor = .specialGreen
+        default: differenceLabel.textColor = .specialGray
+        }
     }
 }
 

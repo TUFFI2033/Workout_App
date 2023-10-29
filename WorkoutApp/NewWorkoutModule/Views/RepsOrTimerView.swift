@@ -19,10 +19,12 @@ class RepsOrTimerView: UIView {
         return view
     }()
     
-    private let setsViews = SliderView(name: "Sets", maxValue: 10)
-    private let repsViews = SliderView(name: "Reps", maxValue: 50)
-    private let timerViews = SliderView(name: "Timer", maxValue: 600)
+    var (sets, reps, timer) = (0, 0, 0)
     
+    private let setsViews = SliderView(name: "Sets", maxValue: 10, type: .sets)
+    private let repsViews = SliderView(name: "Reps", maxValue: 50, type: .reps)
+    private let timerViews = SliderView(name: "Timer", maxValue: 600, type: .timer)
+        
     private let repeatOrTimerLabel = UILabel(text: "Choose repeat or timer")
     
     private lazy var stackView = UIStackView(arrangedSubviews: [setsViews, repeatOrTimerLabel, repsViews, timerViews], 
@@ -34,6 +36,7 @@ class RepsOrTimerView: UIView {
         
         setupViews()
         setConstraints()
+        setDelegates()
     }
     
     required init?(coder: NSCoder) {
@@ -49,9 +52,44 @@ class RepsOrTimerView: UIView {
         addSubview(backView)
         backView.addSubview(stackView)
     }
+    
+    private func setDelegates() {
+        setsViews.delegate = self
+        repsViews.delegate = self
+        timerViews.delegate = self
+    }
+    
+    func resetSliderViewValue() {
+        setsViews.resetValues()
+        repsViews.resetValues()
+        timerViews.resetValues()
+    }
 }
 
-// MARK: Set Constraints
+// MARK: - SlidetViewProtocol
+
+extension RepsOrTimerView: SlidetViewProtocol {
+    func changeValue(type: SliderType, value: Int) {
+        switch type {
+        case .sets:
+            sets = value
+        case .reps:
+            reps = value
+            repsViews.isActive = true
+            timerViews.isActive = false
+            timer = 0
+        case .timer:
+            timer = value
+            repsViews.isActive = false
+            timerViews.isActive = true
+            reps = 0
+        }
+    }
+    
+    
+}
+
+// MARK: - Set Constraints
 
 extension RepsOrTimerView {
     
