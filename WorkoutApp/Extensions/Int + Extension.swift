@@ -20,4 +20,14 @@ extension Int {
         }
         return "\(self / 60) min \(self % 60)"
     }
+    
+    func convertSeconds() -> (Int, Int) {
+        let min = self / 60
+        let sec = self % 60
+        return (min, sec)
+    }
+    
+    func setZeroForSecond() -> String {
+        Double(self) / 10 < 1 ? "0\(self)" : "\(self)"
+    }
 }

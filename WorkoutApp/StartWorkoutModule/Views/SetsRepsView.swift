@@ -7,55 +7,20 @@
 
 import UIKit
 
+protocol NextSetProtocol: AnyObject {
+    func nextSetTapped()
+    func editingTapped()
+}
+
 class SetsRepsView: UIView {
     
-    private let workoutNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Squats"
-        label.textColor = .specialGray
-        label.font = .robotoMedium24()
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        label.minimumScaleFactor = 0.5
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    weak var cellNextSetDelegate: NextSetProtocol?
     
-    private let setsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Sets"
-        label.textColor = .specialGray
-        label.font = .robotoMedium18()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let countSetsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "1/4"
-        label.textColor = .specialGray
-        label.font = .robotoMedium18()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let repsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Reps"
-        label.textColor = .specialGray
-        label.font = .robotoMedium18()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let countRepsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "20"
-        label.textColor = .specialGray
-        label.font = .robotoMedium18()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let workoutNameLabel = UILabel(text: "Squats", font: .robotoMedium24(), textColor: .specialGray)
+    private let setsLabel = UILabel(text: "Sets", font: .robotoMedium18(), textColor: .specialGray)
+    private let countSetsLabel = UILabel(text: "1/4", font: .robotoMedium18(), textColor: .specialGray)
+    private let repsOrTimeLabel = UILabel(text: "Reps", font: .robotoMedium18(), textColor: .specialGray)
+    private let countRepsOrTimeLabel = UILabel(text: "20", font: .robotoMedium18(), textColor: .specialGray)
     
     private lazy var editingButton: UIButton = {
         let button = UIButton()
@@ -83,8 +48,14 @@ class SetsRepsView: UIView {
     
     private let borderSets = UIView()
     private let borderReps = UIView()
-    private lazy var stackSets = UIStackView(arrangedSubviews: [setsLabel, countSetsLabel], axis: .horizontal, spacing: 10)
-    private lazy var stackReps = UIStackView(arrangedSubviews: [repsLabel, countRepsLabel], axis: .horizontal, spacing: 10)
+    private lazy var stackSets = UIStackView(
+        arrangedSubviews: [setsLabel, countSetsLabel],
+        axis: .horizontal,
+        spacing: 10)
+    private lazy var stackReps = UIStackView(
+        arrangedSubviews: [repsOrTimeLabel, countRepsOrTimeLabel],
+        axis: .horizontal,
+        spacing: 10)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -102,6 +73,9 @@ class SetsRepsView: UIView {
         backgroundColor = .specialLightBrown
         layer.cornerRadius = 10
         
+        workoutNameLabel.textAlignment = .center
+        stackSets.distribution = .equalSpacing
+        stackReps.distribution = .equalSpacing
         borderSets.backgroundColor = .specialBrown
         borderReps.backgroundColor = .specialBrown
         borderSets.translatesAutoresizingMaskIntoConstraints = false
@@ -117,11 +91,27 @@ class SetsRepsView: UIView {
     }
     
     @objc private func nextSetButtonTapped() {
-        print("next")
+        cellNextSetDelegate?.nextSetTapped()
     }
     
     @objc private func editingButtonTapped() {
-        print("editing")
+        cellNextSetDelegate?.editingTapped()
+    }
+    
+    func refreshLabels(model: WorkoutModel, numberOfSet: Int) {
+        workoutNameLabel.text = model.workoutName
+        countSetsLabel.text = "\(numberOfSet)/\(model.workoutSets)"
+        if model.workoutReps != 0 {
+            countRepsOrTimeLabel.text = "\(model.workoutReps)"
+        } else {
+            repsOrTimeLabel.text = "Time of Set"
+            countRepsOrTimeLabel.text = "\(model.workoutTimer.getTimeFromSeconds())"
+        }
+    }
+    
+    func buttonsIsEnable(_ value: Bool) {
+        editingButton.isEnabled = value
+        nextSetButton.isEnabled = value
     }
 }
 
@@ -135,7 +125,7 @@ extension SetsRepsView {
             workoutNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             workoutNameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             
-            stackSets.topAnchor.constraint(equalTo: workoutNameLabel.bottomAnchor, constant: 20),
+            stackSets.topAnchor.constraint(equalTo: workoutNameLabel.bottomAnchor, constant: 10),
             stackSets.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             stackSets.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             

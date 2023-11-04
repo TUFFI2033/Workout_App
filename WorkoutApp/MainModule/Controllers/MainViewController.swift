@@ -74,7 +74,6 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        print(Realm.Configuration.defaultConfiguration.fileURL)
         setupViews()
         setConstraints()
     }
@@ -139,9 +138,12 @@ extension MainViewController: WorkoutCellProtocol {
     
     func startButtonTapped(model: WorkoutModel) {
         let startWorkoutViewController = StartWorkoutViewController()
+        startWorkoutViewController.setWorkoutModel(model)
+        if model.workoutTimer != 0 {
+            startWorkoutViewController.updateImageAndTimer(image: "ellipse")
+        }
         startWorkoutViewController.modalPresentationStyle = .fullScreen
         present(startWorkoutViewController, animated: true)
-        print(model)
     }
 }
 
@@ -198,9 +200,9 @@ extension MainViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             noWorkoutImageView.topAnchor.constraint(equalTo: workoutTodayLabel.bottomAnchor),
-            noWorkoutImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            noWorkoutImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            noWorkoutImageView.heightAnchor.constraint(equalTo: noWorkoutImageView.widthAnchor)
+            noWorkoutImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noWorkoutImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7),
+            noWorkoutImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5)
         ])
     }
 }

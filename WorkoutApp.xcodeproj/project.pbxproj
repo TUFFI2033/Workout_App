@@ -48,6 +48,7 @@
 		DD9B12532AE44D06009F3539 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9B12522AE44D06009F3539 /* RealmManager.swift */; };
 		DDDA7BFE2AEE720A00107A87 /* StartWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDA7BFD2AEE720A00107A87 /* StartWorkoutViewController.swift */; };
 		DDDA7C012AEE784900107A87 /* SetsRepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDA7C002AEE784800107A87 /* SetsRepsView.swift */; };
+		DDDA7C032AEE9EE600107A87 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDA7C022AEE9EE600107A87 /* CustomAlert.swift */; };
 		DDF5CB4E2ADA971000E58F48 /* Date + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF5CB4D2ADA971000E58F48 /* Date + Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +94,7 @@
 		DD9B12522AE44D06009F3539 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		DDDA7BFD2AEE720A00107A87 /* StartWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutViewController.swift; sourceTree = "<group>"; };
 		DDDA7C002AEE784800107A87 /* SetsRepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsRepsView.swift; sourceTree = "<group>"; };
+		DDDA7C022AEE9EE600107A87 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
 		DDF5CB4D2ADA971000E58F48 /* Date + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date + Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -344,6 +346,7 @@
 				DD7DE1462AC989110072890B /* BrownTextField.swift */,
 				DD4F33202AC9D54D00610C6B /* GreenSlider.swift */,
 				DD4F33272AC9E33000610C6B /* GreenButton.swift */,
+				DDDA7C022AEE9EE600107A87 /* CustomAlert.swift */,
 			);
 			path = Componets;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				DDF5CB4E2ADA971000E58F48 /* Date + Extensions.swift in Sources */,
 				DD3BAEF42AC4C07B004C7200 /* StatisticViewController.swift in Sources */,
 				DD7DE1452AC9884F0072890B /* NameView.swift in Sources */,
+				DDDA7C032AEE9EE600107A87 /* CustomAlert.swift in Sources */,
 				DD6382A32AA342160058F9FF /* WeatherView.swift in Sources */,
 				DD4E11532AE5156000E3BE4C /* UIViewController + Extensions.swift in Sources */,
 				DD4F33242AC9D5F000610C6B /* SliderView.swift in Sources */,
