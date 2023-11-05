@@ -86,6 +86,7 @@ class StartWorkoutViewController: UIViewController {
     }
     
     @objc private func closeButtonTapped() {
+        timer.invalidate()
         dismiss(animated: true)
     }
     

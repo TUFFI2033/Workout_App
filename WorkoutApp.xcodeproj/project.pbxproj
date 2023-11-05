@@ -46,6 +46,11 @@
 		DD7DE1472AC989110072890B /* BrownTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7DE1462AC989110072890B /* BrownTextField.swift */; };
 		DD7DE1492AC995330072890B /* DateAndReapetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7DE1482AC995330072890B /* DateAndReapetView.swift */; };
 		DD9B12532AE44D06009F3539 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9B12522AE44D06009F3539 /* RealmManager.swift */; };
+		DD9DE9182AF7D87700081F2E /* ProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DE9172AF7D87700081F2E /* ProfilViewController.swift */; };
+		DD9DE91B2AF7DAA500081F2E /* СharacteristicUserAndPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DE91A2AF7DAA500081F2E /* СharacteristicUserAndPhotoView.swift */; };
+		DD9DE91D2AF7EA7D00081F2E /* WorkoutCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DE91C2AF7EA7D00081F2E /* WorkoutCollectionView.swift */; };
+		DD9DE9202AF7ED3200081F2E /* WorkoutCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DE91F2AF7ED3200081F2E /* WorkoutCollectionViewCell.swift */; };
+		DD9DE9222AF8269E00081F2E /* TargetProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD9DE9212AF8269E00081F2E /* TargetProgressView.swift */; };
 		DDDA7BFE2AEE720A00107A87 /* StartWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDA7BFD2AEE720A00107A87 /* StartWorkoutViewController.swift */; };
 		DDDA7C012AEE784900107A87 /* SetsRepsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDA7C002AEE784800107A87 /* SetsRepsView.swift */; };
 		DDDA7C032AEE9EE600107A87 /* CustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDA7C022AEE9EE600107A87 /* CustomAlert.swift */; };
@@ -92,6 +97,11 @@
 		DD7DE1462AC989110072890B /* BrownTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrownTextField.swift; sourceTree = "<group>"; };
 		DD7DE1482AC995330072890B /* DateAndReapetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndReapetView.swift; sourceTree = "<group>"; };
 		DD9B12522AE44D06009F3539 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		DD9DE9172AF7D87700081F2E /* ProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilViewController.swift; sourceTree = "<group>"; };
+		DD9DE91A2AF7DAA500081F2E /* СharacteristicUserAndPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СharacteristicUserAndPhotoView.swift"; sourceTree = "<group>"; };
+		DD9DE91C2AF7EA7D00081F2E /* WorkoutCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCollectionView.swift; sourceTree = "<group>"; };
+		DD9DE91F2AF7ED3200081F2E /* WorkoutCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutCollectionViewCell.swift; sourceTree = "<group>"; };
+		DD9DE9212AF8269E00081F2E /* TargetProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetProgressView.swift; sourceTree = "<group>"; };
 		DDDA7BFD2AEE720A00107A87 /* StartWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartWorkoutViewController.swift; sourceTree = "<group>"; };
 		DDDA7C002AEE784800107A87 /* SetsRepsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsRepsView.swift; sourceTree = "<group>"; };
 		DDDA7C022AEE9EE600107A87 /* CustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlert.swift; sourceTree = "<group>"; };
@@ -194,8 +204,9 @@
 				DD63829C2AA26E380058F9FF /* MainModule */,
 				DD7DE1382AC95B820072890B /* NewWorkoutModule */,
 				DDDA7BFB2AEE71B900107A87 /* StartWorkoutModule */,
-				DD9B12512AE44CE9009F3539 /* Service */,
+				DD9DE9152AF7D82600081F2E /* ProfilModule */,
 				DD3BAEF02AC4C028004C7200 /* StatisticModule */,
+				DD9B12512AE44CE9009F3539 /* Service */,
 				DD6382A42AA64DF70058F9FF /* Extensions */,
 				DD63829B2AA26DD50058F9FF /* SupportingFiles */,
 			);
@@ -359,6 +370,42 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		DD9DE9152AF7D82600081F2E /* ProfilModule */ = {
+			isa = PBXGroup;
+			children = (
+				DD9DE9192AF7D9B600081F2E /* Views */,
+				DD9DE9162AF7D84700081F2E /* Controllers */,
+			);
+			path = ProfilModule;
+			sourceTree = "<group>";
+		};
+		DD9DE9162AF7D84700081F2E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DD9DE9172AF7D87700081F2E /* ProfilViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DD9DE9192AF7D9B600081F2E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DD9DE91E2AF7ED2100081F2E /* Cells */,
+				DD9DE91A2AF7DAA500081F2E /* СharacteristicUserAndPhotoView.swift */,
+				DD9DE91C2AF7EA7D00081F2E /* WorkoutCollectionView.swift */,
+				DD9DE9212AF8269E00081F2E /* TargetProgressView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD9DE91E2AF7ED2100081F2E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DD9DE91F2AF7ED3200081F2E /* WorkoutCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		DDDA7BFB2AEE71B900107A87 /* StartWorkoutModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,11 +516,13 @@
 				DDF5CB4E2ADA971000E58F48 /* Date + Extensions.swift in Sources */,
 				DD3BAEF42AC4C07B004C7200 /* StatisticViewController.swift in Sources */,
 				DD7DE1452AC9884F0072890B /* NameView.swift in Sources */,
+				DD9DE9182AF7D87700081F2E /* ProfilViewController.swift in Sources */,
 				DDDA7C032AEE9EE600107A87 /* CustomAlert.swift in Sources */,
 				DD6382A32AA342160058F9FF /* WeatherView.swift in Sources */,
 				DD4E11532AE5156000E3BE4C /* UIViewController + Extensions.swift in Sources */,
 				DD4F33242AC9D5F000610C6B /* SliderView.swift in Sources */,
 				DD3BAEEE2AC3736B004C7200 /* UIStackView + Extension.swift in Sources */,
+				DD9DE9202AF7ED3200081F2E /* WorkoutCollectionViewCell.swift in Sources */,
 				DD664AC72AC073F6008B1363 /* UIFont + Extensions.swift in Sources */,
 				DDDA7BFE2AEE720A00107A87 /* StartWorkoutViewController.swift in Sources */,
 				DD4F33302AC9F23100610C6B /* SliderType.swift in Sources */,
@@ -483,8 +532,10 @@
 				DD4F33212AC9D54D00610C6B /* GreenSlider.swift in Sources */,
 				DD63828A2AA26D710058F9FF /* MainViewController.swift in Sources */,
 				DD6382862AA26D710058F9FF /* AppDelegate.swift in Sources */,
+				DD9DE91B2AF7DAA500081F2E /* СharacteristicUserAndPhotoView.swift in Sources */,
 				DD664AD32AC07D11008B1363 /* CalendarCollectionViewCell.swift in Sources */,
 				DD664AD72AC096A3008B1363 /* MainTableView.swift in Sources */,
+				DD9DE91D2AF7EA7D00081F2E /* WorkoutCollectionView.swift in Sources */,
 				DD4E11562AE5568400E3BE4C /* DifferenceWorkout.swift in Sources */,
 				DD664AD02AC07A93008B1363 /* CalendarCollectionView.swift in Sources */,
 				DD7DE1492AC995330072890B /* DateAndReapetView.swift in Sources */,
@@ -499,6 +550,7 @@
 				DD3BAEF92AC4C556004C7200 /* StatisticTableViewCell.swift in Sources */,
 				DD3BAEF62AC4C391004C7200 /* StatisticTableView.swift in Sources */,
 				DD4F33282AC9E33000610C6B /* GreenButton.swift in Sources */,
+				DD9DE9222AF8269E00081F2E /* TargetProgressView.swift in Sources */,
 				DD6382882AA26D710058F9FF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

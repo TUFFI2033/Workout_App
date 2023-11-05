@@ -7,7 +7,15 @@
 
 import UIKit
 
+protocol BrownTextFieldProtocol: AnyObject {
+    func typing(range: NSRange, replacementString: String)
+    func clear()
+}
+
 class BrownTextField: UITextField {
+    
+    weak var brownDelegate: BrownTextFieldProtocol?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,5 +44,15 @@ extension BrownTextField: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        brownDelegate?.typing(range: range, replacementString: string)
+        return true
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        brownDelegate?.clear()
+        return true
     }
 }
