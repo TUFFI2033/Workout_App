@@ -9,13 +9,13 @@ import UIKit
 
 class TargetProgressView: UIView {
     
-    private let targetLabel = UILabel(text: "TARGET: 0 workouts",
+    let targetLabel = UILabel(text: "TARGET: 0 workouts",
                                       font: .robotoBold16(),
                                       textColor: .specialGray)
     private let workoutsNowLabel = UILabel(text: "0",
                                       font: .robotoBold24(),
                                       textColor: .specialGray)
-    private let workoutsTargetLabel = UILabel(text: "20",
+    let workoutsTargetLabel = UILabel(text: "20",
                                       font: .robotoBold24(),
                                       textColor: .specialGray)
     private lazy var stackWorkoutsTargetLabel = UIStackView(arrangedSubviews: [workoutsNowLabel, workoutsTargetLabel], axis: .horizontal, spacing: 10)

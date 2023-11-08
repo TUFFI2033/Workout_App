@@ -7,13 +7,24 @@
 
 import UIKit
 
+protocol CharacteristicUserAndPhotoViewDelegate: AnyObject {
+    func editingButtonTapped()
+}
+
 class СharacteristicUserAndPhotoView: UIView {
     
-    private let userPhotoImageView: UIImageView = {
+    weak var delegate: CharacteristicUserAndPhotoViewDelegate?
+    
+    private let profilLabel = UILabel(text: "PROFILE",
+                                      font: .robotoBold24(),
+                                      textColor: .specialGray)
+    
+    let userPhotoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .specialLine
         imageView.image = UIImage(named: "addPhoto")
         imageView.contentMode = .center
+        imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 50
         imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.borderWidth = 5
@@ -37,17 +48,23 @@ class СharacteristicUserAndPhotoView: UIView {
     
     
     private let greenView = UIView()
-    private let nameUserLabel = UILabel(text: "User Name",
+    let nameUserLabel = UILabel(text: "User Name",
                                         font: .robotoBold24(),
                                         textColor: .white)
-    private let userHeightLabel = UILabel(text: "Height: 180",
+    let userHeightLabel = UILabel(text: "Height: _",
                                      font: .robotoBold16(),
                                      textColor: .specialGray)
-    private let userWeightLabel = UILabel(text: "Weight: 80",
+    let userWeightLabel = UILabel(text: "Weight: _",
                                      font: .robotoBold16(),
                                      textColor: .specialGray)
-    private lazy var stackUserHeightWeightLabel = UIStackView(arrangedSubviews: [userHeightLabel, userWeightLabel], axis: .horizontal, spacing: 10)
-    private lazy var stackUserLabelAndEditing = UIStackView(arrangedSubviews: [stackUserHeightWeightLabel, editingButton], axis: .horizontal, spacing: 20)
+    private lazy var stackUserHeightWeightLabel = UIStackView(
+        arrangedSubviews: [userHeightLabel, userWeightLabel],
+        axis: .horizontal,
+        spacing: 10)
+    private lazy var stackUserLabelAndEditing = UIStackView(
+        arrangedSubviews: [stackUserHeightWeightLabel, editingButton],
+        axis: .horizontal,
+        spacing: 20)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -72,6 +89,7 @@ class СharacteristicUserAndPhotoView: UIView {
         
         stackUserLabelAndEditing.distribution = .equalSpacing
     
+        addSubview(profilLabel)
         addSubview(greenView)
         addSubview(userPhotoImageView)
         addSubview(nameUserLabel)
@@ -79,7 +97,7 @@ class СharacteristicUserAndPhotoView: UIView {
     }
     
     @objc private func editingButtonTapped() {
-        
+        delegate?.editingButtonTapped()
     }
 }
 
@@ -89,7 +107,10 @@ extension СharacteristicUserAndPhotoView {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            userPhotoImageView.topAnchor.constraint(equalTo: topAnchor),
+            profilLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            profilLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            
+            userPhotoImageView.topAnchor.constraint(equalTo: profilLabel.bottomAnchor, constant: 20),
             userPhotoImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             userPhotoImageView.heightAnchor.constraint(equalToConstant: 100),
             userPhotoImageView.widthAnchor.constraint(equalToConstant: 100),

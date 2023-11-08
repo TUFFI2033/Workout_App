@@ -81,23 +81,9 @@ class StatisticViewController: UIViewController {
         tableView.reloadData()
     }
     
-    private func getWorkoutsName() -> [String] {
-        var nameArray = [String]()
-        
-        let allWorkouts = RealmManager.shared.getResultWorkoutModel()
-        
-        for workoutModel in allWorkouts {
-            if !nameArray.contains(workoutModel.workoutName) {
-                nameArray.append(workoutModel.workoutName)
-            }
-        }
-        
-        return nameArray
-    }
-    
     private func getDifferenceModels(dateStart: Date) {
         let dateEnd = Date()
-        let nameArray = getWorkoutsName()
+        let nameArray = RealmManager.shared.getWorkoutsName()
         let allWorkouts = RealmManager.shared.getResultWorkoutModel()
         var workoutArray = [WorkoutModel]()
         

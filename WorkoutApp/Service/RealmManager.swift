@@ -51,30 +51,44 @@ class RealmManager {
         }
     }
     
-    //USER
-    //
-    //    func getResultUserModel() -> Results<UserModel> {
-    //        realm.objects(UserModel.self)
-    //    }
+    func getWorkoutsName() -> [String] {
+        var nameArray = [String]()
+        
+        let allWorkouts = getResultWorkoutModel()
+        
+        for workoutModel in allWorkouts {
+            if !nameArray.contains(workoutModel.workoutName) {
+                nameArray.append(workoutModel.workoutName)
+            }
+        }
+        
+        return nameArray
+    }
     
-    //    func saveUserModel(_ model: UserModel) {
-    //        try! realm.write {
-    //            realm.add(model)
-    //        }
-    //    }
-    //
-    //    func updateUserModel(model: UserModel) {
-    //
-    //        let users = getResultUserModel()
-    //
-    //        try! realm.write {
-    //            users[0].userFirstName = model.userFirstName
-    //            users[0].userSecondName = model.userSecondName
-    //            users[0].userHeight = model.userHeight
-    //            users[0].userWeight = model.userWeight
-    //            users[0].userTarget = model.userTarget
-    //            users[0].userImage = model.userImage
-    //        }
-    //    }
+   // USER
+    
+        func getResultUserModel() -> Results<UserModel> {
+            realm.objects(UserModel.self)
+        }
+    
+        func saveUserModel(_ model: UserModel) {
+            try! realm.write {
+                realm.add(model)
+            }
+        }
+    
+        func updateUserModel(model: UserModel) {
+    
+            let users = getResultUserModel()
+    
+            try! realm.write {
+                users[0].userFirstName = model.userFirstName
+                users[0].userSecondName = model.userSecondName
+                users[0].userHeight = model.userHeight
+                users[0].userWeight = model.userWeight
+                users[0].userTarget = model.userTarget
+                users[0].userImage = model.userImage
+            }
+        }
     
 }

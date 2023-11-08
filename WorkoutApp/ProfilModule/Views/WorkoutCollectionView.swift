@@ -9,6 +9,7 @@ import UIKit
 
 class WorkoutCollectionView: UICollectionView {
     
+    var resultArray = [ResultWorkout]()
     private let idWorkoutCell = "idWorkoutCell"
     private let collectionLayout = UICollectionViewFlowLayout()
     
@@ -31,6 +32,7 @@ class WorkoutCollectionView: UICollectionView {
     }
     
     private func configure() {
+        clipsToBounds = false
         backgroundColor = .clear
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false
@@ -46,13 +48,23 @@ class WorkoutCollectionView: UICollectionView {
 
 extension WorkoutCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        15
+        resultArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = dequeueReusableCell(withReuseIdentifier: idWorkoutCell, for: indexPath) as? WorkoutCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        if indexPath.row % 4 == 0 || indexPath.row % 4 == 3  {
+            cell.backgroundColor = .specialGreen
+        } else {
+            cell.backgroundColor = .specialYellow
+        }
+        
+        let model = resultArray[indexPath.row]
+        cell.configure(model: model)
+        
         return cell
     }
 }
