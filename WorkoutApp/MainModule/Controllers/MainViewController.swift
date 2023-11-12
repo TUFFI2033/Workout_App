@@ -22,7 +22,7 @@ class MainViewController: UIViewController {
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Ivan Byndiu"
+        label.text = "User Name"
         label.textColor = .specialGray
         label.font = .robotoMedium24()
         label.adjustsFontSizeToFitWidth = true
@@ -56,7 +56,7 @@ class MainViewController: UIViewController {
     }()
     
     private let calendarView = CalendarView()
-    private let weathetView = WeatherView()
+    private let weatherView = WeatherView()
     private let workoutTodayLabel = UILabel(text: "Workout today")
     private let tableView = MainTableView()
     
@@ -73,11 +73,17 @@ class MainViewController: UIViewController {
         setupUserParameters()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showOnboatding()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
         setConstraints()
+        getWeather()
     }
     
     private func setupViews() {
@@ -90,7 +96,7 @@ class MainViewController: UIViewController {
         view.addSubview(userPhotoImageView)
         view.addSubview(userNameLabel)
         view.addSubview(addWorkoutButton)
-        view.addSubview(weathetView)
+        view.addSubview(weatherView)
         view.addSubview(workoutTodayLabel)
         view.addSubview(tableView)
         view.addSubview(noWorkoutImageView)
@@ -134,6 +140,28 @@ class MainViewController: UIViewController {
             userPhotoImageView.image = image
         }
     }
+    
+    func getWeather() {
+        NetworkDataFetch.shared.fetchWeather { [weak self] result, error in
+            guard let self else { return }
+            
+            if let model = result {
+                self.weatherView.updateLabels(model: model)
+                NetworkImageRequest.shared.requestData(id: model.weather[0].icon) { result in
+                    switch result {
+                    case .success(let data):
+                        self.weatherView.updateImage(data: data)
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
+            if let error {
+                self.presentSimpleAlert(title: "Error", message: error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: CalendarViewProtocol
@@ -160,6 +188,16 @@ extension MainViewController: WorkoutCellProtocol {
         }
         startWorkoutViewController.modalPresentationStyle = .fullScreen
         present(startWorkoutViewController, animated: true)
+    }
+    
+    private func showOnboatding() {
+        let userDefaults = UserDefaults.standard
+        let onBoardingWasViewed = userDefaults.bool(forKey: "OnBoardingWasViewed")
+        if onBoardingWasViewed == false {
+            let onboardingViewController = OnboardingViewController()
+            onboardingViewController.modalPresentationStyle = .fullScreen
+            present(onboardingViewController, animated: false)
+        }
     }
 }
 
@@ -201,10 +239,10 @@ extension MainViewController {
             addWorkoutButton.heightAnchor.constraint(equalToConstant: 80),
             addWorkoutButton.widthAnchor.constraint(equalToConstant: 80),
             
-            weathetView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 5),
-            weathetView.leadingAnchor.constraint(equalTo: addWorkoutButton.trailingAnchor, constant: 10),
-            weathetView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            weathetView.heightAnchor.constraint(equalToConstant: 80),
+            weatherView.topAnchor.constraint(equalTo: calendarView.bottomAnchor, constant: 5),
+            weatherView.leadingAnchor.constraint(equalTo: addWorkoutButton.trailingAnchor, constant: 10),
+            weatherView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            weatherView.heightAnchor.constraint(equalToConstant: 80),
             
             workoutTodayLabel.topAnchor.constraint(equalTo: addWorkoutButton.bottomAnchor, constant: 10),
             workoutTodayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),

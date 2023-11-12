@@ -16,11 +16,6 @@ class EditingProfilViewController: UIViewController {
     private let saveButton = GreenButton(text: "SAVE")
     private var userModel = UserModel()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
