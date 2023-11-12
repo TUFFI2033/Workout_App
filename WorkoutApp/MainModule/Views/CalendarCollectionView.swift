@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol CalendarViewProtocol: AnyObject {
+    func selectItem(date: Date)
+}
+
 class CalendarCollectionView: UICollectionView {
+    
+    weak var calendarDelegate: CalendarViewProtocol?
     
     private let collectionLayout = UICollectionViewFlowLayout()
     
@@ -53,7 +59,10 @@ extension CalendarCollectionView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: idCalendarCell, for: indexPath) as? CalendarCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let weekArray = Date().getWeekArray()
+        cell.dateForCell(numberOfDay: weekArray[1][indexPath.row], dayOfWeek: weekArray[0][indexPath.row])
         
+        collectionView.selectItem(at: [0, 0], animated: true, scrollPosition: .right)
         return cell
     }
 }
@@ -63,7 +72,8 @@ extension CalendarCollectionView: UICollectionViewDataSource {
 extension CalendarCollectionView: UICalendarViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("tap")
+        let date = Date().offsetDay(days: indexPath.row)
+        calendarDelegate?.selectItem(date: date)
     }
 }
 
@@ -73,6 +83,7 @@ extension CalendarCollectionView: UICalendarViewDelegate {
 extension CalendarCollectionView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: collectionView.frame.width / 8, height: collectionView.frame.height)
+        CGSize(width: collectionView.frame.width / 8, 
+               height: collectionView.frame.height)
     }
 }

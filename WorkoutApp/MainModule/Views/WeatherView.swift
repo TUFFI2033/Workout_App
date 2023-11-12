@@ -11,8 +11,8 @@ class WeatherView: UIView {
     
     private let weatherLabel: UILabel = {
         let label = UILabel()
-        label.text = "Солнечно"
         label.textColor = .specialGray
+        label.text = "Loading..."
         label.font = .robotoMedium18()
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -22,7 +22,6 @@ class WeatherView: UIView {
     
     private let weatherDescriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Хорошая погода, чтобы позаниматься на улице"
         label.textColor = .specialLine
         label.font = .robotoMedium14()
         label.numberOfLines = 2
@@ -62,6 +61,16 @@ class WeatherView: UIView {
         addSubview(weatherImage)
     }
     
+    func updateImage(data: Data) {
+        guard let image = UIImage(data: data) else { return }
+        weatherImage.image = image
+    }
+    
+    func updateLabels(model: WeatherModel) {
+        weatherLabel.text = model.name + " " + "\(model.main.temperatureCelsius)°C"
+        weatherDescriptionLabel.text = model.weather[0].description.prefix(1).capitalized +
+        model.weather[0].description.dropFirst()
+    }
 }
 
 //  MARK: Set Constraints

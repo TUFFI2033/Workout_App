@@ -32,9 +32,20 @@ class StatisticViewController: UIViewController {
         return segmented
     }()
     
+    private let nameTextField = BrownTextField()
     private let exercisesLabel = UILabel(text: "Exercises")
     private let tableView = StatisticTableView()
 
+    private var differenceArray = [DifferenceWorkout]()
+    private var filtredArray = [DifferenceWorkout]()
+    private var isFiltred = false
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        segmentedChange()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,14 +56,88 @@ class StatisticViewController: UIViewController {
     private func setupViews() {
         view.backgroundColor = .specialBackground
         
+        nameTextField.brownDelegate = self
+        
         view.addSubview(statisticLabel)
         view.addSubview(segmentedControl)
+        view.addSubview(nameTextField)
         view.addSubview(exercisesLabel)
         view.addSubview(tableView)
     }
     
     @objc private func segmentedChange() {
-        print("tap segmented")
+        let todayDate = Date()
+        differenceArray = [DifferenceWorkout]()
+        
+        if segmentedControl.selectedSegmentIndex == 0 {
+            let dateStart = todayDate.offsetDay(days: -7)
+            getDifferenceModels(dateStart: dateStart)
+        } else {
+            let dateStart = todayDate.offsetMonth(month: 1)
+            getDifferenceModels(dateStart: dateStart)
+        }
+        
+        tableView.setDifferenceArray(differenceArray)
+        tableView.reloadData()
+    }
+    
+    private func getDifferenceModels(dateStart: Date) {
+        let dateEnd = Date()
+        let nameArray = RealmManager.shared.getWorkoutsName()
+        let allWorkouts = RealmManager.shared.getResultWorkoutModel()
+        var workoutArray = [WorkoutModel]()
+        
+        for name in nameArray {
+            let predicate = NSPredicate(format: "workoutName = '\(name)' AND workoutDate BETWEEN %@", [dateStart, dateEnd])
+            let filtredArray = allWorkouts.filter(predicate).sorted(byKeyPath: "workoutDate")
+            workoutArray = filtredArray.map { $0 }
+            
+            guard let last = workoutArray.last?.workoutReps,
+                  let first = workoutArray.first?.workoutReps else {
+                return
+            }
+            let differenceWorkout = DifferenceWorkout(name: name, lastReps: last, firstReps: first)
+            differenceArray.append(differenceWorkout)
+        }
+    }
+    
+    func filtringWorkouts(text: String) {
+        
+        for workout in differenceArray {
+            if workout.name.lowercased().contains(text.lowercased()) {
+                filtredArray.append(workout)
+            }
+        }
+    }
+}
+
+//MARK: - BrownTextFieldProtocol
+
+extension StatisticViewController: BrownTextFieldProtocol {
+    func typing(range: NSRange, replacementString: String) {
+        if let text = nameTextField.text,
+           let textRange = Range(range, in: text) {
+            let updateText = text.replacingCharacters(in: textRange, with: replacementString)
+            
+            filtredArray = [DifferenceWorkout]()
+            isFiltred = updateText.count > 0
+            filtringWorkouts(text: updateText)
+        }
+        
+        if isFiltred {
+            tableView.setDifferenceArray(filtredArray)
+        } else {
+            tableView.setDifferenceArray(differenceArray)
+        }
+        tableView.reloadData()
+    }
+    
+    func clear() {
+//        isFiltred = false
+//        differenceArray = [DifferenceWorkout]()
+//        getDifferenceModels(dateStart: Date().offsetDay(days: 7))
+        tableView.setDifferenceArray(differenceArray)
+        tableView.reloadData()
     }
 }
 
@@ -69,7 +154,12 @@ extension StatisticViewController {
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            exercisesLabel.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            nameTextField.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 10),
+            nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            nameTextField.heightAnchor.constraint(equalToConstant: 35),
+            
+            exercisesLabel.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
             exercisesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             exercisesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
